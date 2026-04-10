@@ -9,7 +9,7 @@ from PIL import Image, ImageFile
 import io
 import json
 import re
-from google import genai   # ✅ NEW SDK
+import google.generativeai as genai   # ✅ NEW SDK
 import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 # =====================
