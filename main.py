@@ -9,9 +9,11 @@ from PIL import Image, ImageFile
 import io
 import json
 import re
-import google.generativeai as genai   # ✅ NEW SDK
+import google.generativeai as genai
 import os
+
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+
 # =====================
 # FIX CORRUPTED IMAGES
 # =====================
@@ -22,15 +24,14 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 # =====================
 app = FastAPI()
 
-# 🔑 DIRECT API KEY
-client = genai.Client(api_key="AIzaSyDYSQvvrINyZliGqTTeMEfs-41UReKETNw")
+# ✅ Correct API KEY usage (Render Environment Variable)
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 # =====================
 # LOAD MODEL
 # =====================
 model = load_model("model/waste_classifier_finetuned.keras")
 
-# Class labels (avoid json issue)
 classes = ['cardboard', 'glass', 'hazardous', 'metal', 'paper', 'plastic', 'trash']
 
 # =====================
@@ -68,7 +69,7 @@ def extract_json(text):
     return match.group() if match else "{}"
 
 # =====================
-# GEMINI 2.5 FLASH (NEW SDK)
+# GEMINI (FIXED VERSION)
 # =====================
 def generate_llm_response(label, category):
 
@@ -88,10 +89,9 @@ def generate_llm_response(label, category):
     """
 
     try:
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=prompt
-        )
+        model_gemini = genai.GenerativeModel("gemini-1.5-flash")
+
+        response = model_gemini.generate_content(prompt)
 
         text = response.text
         clean_text = extract_json(text)
