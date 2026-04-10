@@ -1,7 +1,9 @@
 fastapi
 uvicorn
-tensorflow
-pillow
 numpy
-google-genai
-requests
+pandas
+scikit-learn
+tensorflow-cpu==2.12.0
+pillow
+google-generativeai
+python-multipart
