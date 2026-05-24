@@ -33,15 +33,9 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 # model = load_model("model/waste_classifier_finetuned.keras")
 from tensorflow import keras
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-MODEL_PATH = os.path.join(
-    BASE_DIR,
-    "model",
-    "waste_classifier_finetuned.keras"
+model = keras.models.load_model(
+    "model/waste_classifier_finetuned.keras"
 )
-
-model = keras.models.load_model(MODEL_PATH)
 classes = ['cardboard', 'glass', 'hazardous', 'metal', 'paper', 'plastic', 'trash']
 
 # =====================
