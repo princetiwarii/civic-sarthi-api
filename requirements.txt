@@ -1,9 +1,12 @@
+
+pandas
+scikit-learn
+google-generativeai
+python-multipart
+tensorflow-cpu==2.16.1
+keras==3.3.3
 fastapi
 uvicorn
 numpy
-pandas
-scikit-learn
-tensorflow-cpu==2.12.0
 pillow
-google-generativeai
 python-multipart
